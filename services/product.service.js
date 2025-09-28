@@ -7,6 +7,16 @@ class ProductService extends BaseService {
 		super(productModel);
 	}
 
+	async getPopulated(id) {
+		return await this.model
+			.findById(id)
+			.populate("category")
+			.populate({
+				path: "reviews",
+				populate: { path: "user", select: "name" },
+			});
+	}
+
 	async getByCategory(categoryId) {
 		return await this.model.find({ category: categoryId });
 	}

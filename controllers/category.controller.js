@@ -30,6 +30,17 @@ export const categoryController = {
 		}
 	},
 
+	async getWithProducts(req, res, next) {
+		try {
+			const category = await categoryService.getWithProducts(
+				req.params.id
+			);
+			res.json(category);
+		} catch (err) {
+			next(err);
+		}
+	},
+
 	async update(req, res, next) {
 		try {
 			const updated = await categoryService.update(

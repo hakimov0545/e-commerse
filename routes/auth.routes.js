@@ -18,7 +18,7 @@ const router = Router();
 
 /**
  * @swagger
- * /api/auth/register:
+ * /register:
  *   post:
  *     summary: Ro‘yxatdan o‘tish
  *     tags: [Auth]
@@ -68,7 +68,7 @@ router.post(
 
 /**
  * @swagger
- * /api/auth/login:
+ * /login:
  *   post:
  *     summary: Login qilish
  *     tags: [Auth]
@@ -107,7 +107,7 @@ router.post(
 
 /**
  * @swagger
- * /api/auth/logout:
+ * /logout:
  *   post:
  *     summary: Logout qilish
  *     tags: [Auth]
@@ -119,7 +119,7 @@ router.post("/logout", AuthController.logout);
 
 /**
  * @swagger
- * /api/auth/refresh:
+ * /refresh:
  *   get:
  *     summary: Token yangilash
  *     tags: [Auth]

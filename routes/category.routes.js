@@ -46,7 +46,6 @@ const router = Router();
  *         description: Unauthorized
  *       403:
  *         description: Forbidden (not admin)
- *
  *   get:
  *     summary: Get all categories
  *     tags: [Categories]
@@ -83,7 +82,6 @@ const router = Router();
  *               $ref: '#/components/schemas/Category'
  *       404:
  *         description: Category not found
- *
  *   put:
  *     summary: Update a category (Admin only)
  *     tags: [Categories]
@@ -118,7 +116,6 @@ const router = Router();
  *         description: Unauthorized
  *       403:
  *         description: Forbidden (not admin)
- *
  *   delete:
  *     summary: Delete a category (Admin only)
  *     tags: [Categories]
@@ -140,6 +137,37 @@ const router = Router();
  *         description: Unauthorized
  *       403:
  *         description: Forbidden (not admin)
+ */
+
+/**
+ * @swagger
+ * /api/categories/{id}/products:
+ *   get:
+ *     summary: Get category with its products
+ *     tags: [Categories]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Category ID
+ *     responses:
+ *       200:
+ *         description: Category with products
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 category:
+ *                   $ref: '#/components/schemas/Category'
+ *                 products:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Product'
+ *       404:
+ *         description: Category not found
  */
 
 /**
@@ -174,29 +202,21 @@ const router = Router();
  *         updatedAt: 2025-09-28T12:34:56.000Z
  */
 
-// ✅ Kategoriya yaratish (faqat admin)
 router.post(
 	"/",
 	authMiddleware,
 	adminMiddleware,
 	categoryController.create
 );
-
-// ✅ Barcha kategoriyalarni olish
 router.get("/", categoryController.getAll);
-
-// ✅ ID bo‘yicha bitta kategoriya olish
 router.get("/:id", categoryController.getById);
-
-// ✅ Kategoriyani yangilash (faqat admin)
+router.get("/:id/products", categoryController.getWithProducts);
 router.put(
 	"/:id",
 	authMiddleware,
 	adminMiddleware,
 	categoryController.update
 );
-
-// ✅ Kategoriyani o‘chirish (faqat admin)
 router.delete(
 	"/:id",
 	authMiddleware,

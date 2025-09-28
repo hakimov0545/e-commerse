@@ -111,6 +111,23 @@ router.get("/category/:categoryId", productController.getByCategory);
 
 /**
  * @swagger
+ * /api/products/populated/{id}:
+ *  get:
+ * 	summary: Get product by ID with populated category and reviews
+ * 	tags: [Products]
+ * 	parameters:
+ * 		- in: path
+ * 			name: id
+ * 			required: true
+ * 			schema:
+ * 				type: string
+ * 				description: Product ID
+ */
+
+router.get("/populated/:id", productController.getPopulated);
+
+/**
+ * @swagger
  * /api/products/{id}:
  *   put:
  *     summary: Update product

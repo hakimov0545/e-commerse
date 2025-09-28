@@ -49,6 +49,22 @@ export const productController = {
 		}
 	},
 
+	async getPopulated(req, res, next) {
+		try {
+			const product = await productService.getPopulated(
+				req.params.id
+			);
+			if (!product) {
+				return res
+					.status(404)
+					.json({ message: "Product not found" });
+			}
+			res.json(product);
+		} catch (err) {
+			next(err);
+		}
+	},
+
 	async update(req, res, next) {
 		try {
 			const product = await productService.update(
