@@ -5,7 +5,7 @@ export const productController = {
 		try {
 			const product = await productService.create(
 				req.body,
-				req.files.images
+				req.files // Multer puts all uploaded files here as an array
 			);
 			res.status(201).json(product);
 		} catch (err) {
@@ -60,6 +60,15 @@ export const productController = {
 					.json({ message: "Product not found" });
 			}
 			res.json(product);
+		} catch (err) {
+			next(err);
+		}
+	},
+
+	async getAllPopulated(req, res, next) {
+		try {
+			const products = await productService.getAllPopulated();
+			res.json(products);
 		} catch (err) {
 			next(err);
 		}

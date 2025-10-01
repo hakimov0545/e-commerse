@@ -11,14 +11,25 @@ class ProductService extends BaseService {
 		return await this.model
 			.findById(id)
 			.populate("category")
-			.populate({
-				path: "reviews",
-				populate: { path: "user", select: "name" },
-			});
+			.populate("reviews");
+	}
+
+	async getAllPopulated() {
+		return await this.model.find().populate("category");
 	}
 
 	async getByCategory(categoryId) {
 		return await this.model.find({ category: categoryId });
+	}
+
+	async generateUniqueSlug(name) {
+		let baseSlug = name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+		let slug = baseSlug;
+		let count = 1;
+		while (await this.model.exists({ slug })) {
+			slug = `${baseSlug}-${count++}`;
+		}
+		return slug;
 	}
 
 	async create(data, pictures) {
@@ -28,7 +39,8 @@ class ProductService extends BaseService {
 					return fileName;
 			  })
 			: [];
-		const productData = { ...data, images: picturePaths };
+		const slug = await this.generateUniqueSlug(data.name);
+		const productData = { ...data, images: picturePaths, slug };
 		return await this.model.create(productData);
 	}
 }

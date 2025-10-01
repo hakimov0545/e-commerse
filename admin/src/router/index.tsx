@@ -5,6 +5,7 @@ import {
 } from "@/components/ui/sidebar";
 import LoginPage from "@/pages/login";
 import { Outlet, useRoutes } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { ProtectedRoute } from "./protected.route";
 import { AdminRoute } from "./admin.route";
 import Dashboard from "@/pages/dashboard";
@@ -28,6 +29,10 @@ function Router() {
 	const { logout } = useAuth();
 	const routes = [
 		{
+			path: "/",
+			element: <Navigate to="/login" replace />,
+		},
+		{
 			path: "/login",
 			element: <LoginPage />,
 		},
@@ -39,7 +44,7 @@ function Router() {
 						<div className="flex justify-between items-center p-4 border-b border-border/50 w-full shadow-2xs bg-gray-50">
 							<SidebarTrigger />
 							<Tooltip>
-								<TooltipTrigger>
+								<TooltipTrigger asChild>
 									<Button
 										onClick={logout}
 										variant="outline"
@@ -52,7 +57,6 @@ function Router() {
 								</TooltipContent>
 							</Tooltip>
 						</div>
-
 						<ProtectedRoute>
 							<AdminRoute>
 								<Card className="m-4 p-4 bg-accent">

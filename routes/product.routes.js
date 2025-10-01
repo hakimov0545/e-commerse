@@ -4,6 +4,7 @@ import {
 	authMiddleware,
 	adminMiddleware,
 } from "../middlewares/auth.middleware.js";
+import upload from "../middlewares/upload.middleware.js";
 
 const router = Router();
 
@@ -52,6 +53,14 @@ router.post(
 	"/",
 	authMiddleware,
 	adminMiddleware,
+	(req, res, next) => {
+		// Check if request is multipart (file upload)
+		if (req.headers["content-type"] && req.headers["content-type"].includes("multipart/form-data")) {
+			upload.array("images")(req, res, next);
+		} else {
+			next();
+		}
+	},
 	productController.create
 );
 
@@ -66,6 +75,19 @@ router.post(
  *         description: List of products
  */
 router.get("/", productController.getAll);
+
+/**
+ * @swagger
+ * /api/products/populated:
+ *   get:
+ *     summary: Get all products populated
+ *     tags: [Products]
+ *     responses:
+ *       200:
+ *         description: List of products
+ */
+
+router.get("/populated", productController.getAllPopulated);
 
 /**
  * @swagger
@@ -112,16 +134,16 @@ router.get("/category/:categoryId", productController.getByCategory);
 /**
  * @swagger
  * /api/products/populated/{id}:
- *  get:
- * 	summary: Get product by ID with populated category and reviews
- * 	tags: [Products]
- * 	parameters:
- * 		- in: path
- * 			name: id
- * 			required: true
- * 			schema:
- * 				type: string
- * 				description: Product ID
+ *   get:
+ *     summary: Get product by ID with populated category and reviews
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           description: Product ID
  */
 
 router.get("/populated/:id", productController.getPopulated);

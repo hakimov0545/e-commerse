@@ -39,8 +39,18 @@ export const productApi = createApi({
 			}
 		),
 
+		// GET all products populated
+
+		getAllProductsPopulated: builder.query<
+			IPopulatedProduct[],
+			void
+		>({
+			query: () => "/products/populated",
+			providesTags: ["Product"],
+		}),
+
 		// CREATE product
-		createProduct: builder.mutation<IProduct, ICreateProductDto>({
+		createProduct: builder.mutation<IProduct, FormData>({
 			query: (body) => ({
 				url: "/products",
 				method: "POST",
@@ -81,6 +91,7 @@ export const {
 	useGetProductByIdQuery,
 	useGetProductsByCategoryQuery,
 	useGetPopulatedProductQuery,
+	useGetAllProductsPopulatedQuery,
 	useCreateProductMutation,
 	useUpdateProductMutation,
 	useDeleteProductMutation,

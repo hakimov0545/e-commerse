@@ -21,11 +21,12 @@ export default interface IAuthResponse {
 // CATEGORY TYPES
 
 export interface ICategory {
-	id: string;
+	_id: string;
 	name: string;
 	description?: string;
 	createdAt: string;
 	updatedAt: string;
+	slug: string;
 }
 
 export interface ICreateCategoryDto {
@@ -46,7 +47,7 @@ export interface IOrderProduct {
 }
 
 export interface IOrder {
-	id: string;
+	_id: string;
 	user: string;
 	products: IOrderProduct[];
 	status: "pending" | "shipped" | "delivered" | "cancelled";
@@ -72,6 +73,7 @@ export interface IProduct {
 	description?: string;
 	price: number;
 	category: string;
+	images: string[];
 }
 
 export interface IPopulatedProduct {
@@ -81,6 +83,7 @@ export interface IPopulatedProduct {
 	price: number;
 	category: ICategory;
 	reviews: IReview[];
+	images: string[];
 }
 
 export interface ICreateProductDto {
