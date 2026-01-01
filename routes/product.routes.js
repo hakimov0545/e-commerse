@@ -53,14 +53,7 @@ router.post(
 	"/",
 	authMiddleware,
 	adminMiddleware,
-	(req, res, next) => {
-		// Check if request is multipart (file upload)
-		if (req.headers["content-type"] && req.headers["content-type"].includes("multipart/form-data")) {
-			upload.array("images")(req, res, next);
-		} else {
-			next();
-		}
-	},
+	upload.array("images"),
 	productController.create
 );
 

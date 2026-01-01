@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Heart, ShoppingCart, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { API_URL } from "@/constants";
+import type { IProduct } from "@/types";
 
 interface ProductCardProps {
 	product: IProduct;

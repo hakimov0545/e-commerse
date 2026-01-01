@@ -5,7 +5,6 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
-import fileUpload from "express-fileupload";
 import { errorHandler } from "./middlewares/error.middleware.js";
 
 // 🔹 Routers
@@ -16,7 +15,9 @@ import categoryRouter from "./routes/category.routes.js";
 import orderRouter from "./routes/order.routes.js";
 import reviewRouter from "./routes/review.routes.js";
 import wishlistRouter from "./routes/wishlist.routes.js";
+import dashboardRouter from "./routes/dashboard.routes.js";
 import { swaggerDocs } from "./swagger.js";
+import { logger } from "./middlewares/logger.middleware.js";
 
 const app = express();
 
@@ -31,8 +32,9 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser({}));
+app.use(logger());
 app.use(express.static("static"));
-app.use(fileUpload());
+app.use("/uploads", express.static("uploads")); // 📸 /uploads prefix bilan serve qilish
 
 // 🔹 Routes
 app.use("/api/auth", authRouter);
@@ -42,6 +44,7 @@ app.use("/api/categories", categoryRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/reviews", reviewRouter);
 app.use("/api/wishlist", wishlistRouter);
+app.use("/api/dashboard", dashboardRouter);
 
 // 🔹 Error handler (oxirida bo‘lishi shart)
 app.use(errorHandler);

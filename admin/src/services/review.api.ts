@@ -12,6 +12,12 @@ export const reviewApi = createApi({
 	baseQuery: baseQueryWithReauth,
 	tagTypes: ["Review"],
 	endpoints: (builder) => ({
+		// GET all reviews
+		getAllReviews: builder.query<IReview[], void>({
+			query: () => "/reviews",
+			providesTags: ["Review"],
+		}),
+
 		// CREATE review
 		createReview: builder.mutation<IReview, ICreateReviewDto>({
 			query: (body) => ({
@@ -62,6 +68,7 @@ export const reviewApi = createApi({
 });
 
 export const {
+	useGetAllReviewsQuery,
 	useCreateReviewMutation,
 	useGetReviewsByProductQuery,
 	useGetReviewByIdQuery,

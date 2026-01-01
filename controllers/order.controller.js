@@ -3,12 +3,13 @@ import orderService from "../services/order.service.js";
 export const orderController = {
 	async create(req, res, next) {
 		try {
-			const { products } = req.body; // faqat product va quantity keladi
+			const { products, address } = req.body; // faqat product va quantity keladi
 
 			// productlarning narxini olish uchun servicega yuboramiz
 			const order = await orderService.create({
 				products,
 				user: req.user.id,
+				address,
 			});
 
 			res.status(201).json(order);
@@ -28,7 +29,12 @@ export const orderController = {
 
 	async getAll(req, res, next) {
 		try {
-			const orders = await orderService.getAll();
+			const { fromDate, toDate, status } = req.query;
+			const orders = await orderService.getAll({
+				fromDate,
+				toDate,
+				status,
+			});
 			res.json(orders);
 		} catch (err) {
 			next(err);
@@ -42,6 +48,20 @@ export const orderController = {
 				req.body.status
 			);
 			res.json(updated);
+		} catch (err) {
+			next(err);
+		}
+	},
+
+	async delete(req, res, next) {
+		try {
+			const deleted = await orderService.delete(req.params.id);
+			if (!deleted) {
+				return res
+					.status(404)
+					.json({ message: "Order not found" });
+			}
+			res.json({ message: "Order deleted", deleted });
 		} catch (err) {
 			next(err);
 		}

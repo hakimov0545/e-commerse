@@ -7,7 +7,32 @@ class OrderService extends BaseService {
 		super(Order);
 	}
 
-	async create({ user, products }) {
+	async getAll(filters = {}) {
+		const query = {};
+
+		if (filters.fromDate) {
+			query.createdAt = query.createdAt || {};
+			query.createdAt.$gte = new Date(filters.fromDate);
+		}
+
+		if (filters.toDate) {
+			query.createdAt = query.createdAt || {};
+			const toDate = new Date(filters.toDate);
+			toDate.setHours(23, 59, 59, 999);
+			query.createdAt.$lte = toDate;
+		}
+
+		if (filters.status) {
+			query.status = filters.status;
+		}
+
+		const orders = await Order.find(query)
+			.populate("user", "name email")
+			.populate("products.product");
+		return orders;
+	}
+
+	async create({ user, products, address }) {
 		// productlarni DB dan olish
 		const populatedProducts = await Promise.all(
 			products.map(async (item) => {
@@ -38,6 +63,7 @@ class OrderService extends BaseService {
 			user,
 			products: populatedProducts,
 			totalAmount,
+			address,
 		});
 
 		return order;

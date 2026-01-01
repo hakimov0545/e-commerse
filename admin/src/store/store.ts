@@ -6,6 +6,7 @@ import { productApi } from "@/services/product.api";
 import { reviewApi } from "@/services/review.api";
 import { userApi } from "@/services/user.api";
 import { wishlistApi } from "@/services/wishlist.api";
+import { dashboardApi } from "@/services/dashboard.api";
 
 const store = configureStore({
 	reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
 		[reviewApi.reducerPath]: reviewApi.reducer,
 		[userApi.reducerPath]: userApi.reducer,
 		[wishlistApi.reducerPath]: wishlistApi.reducer,
+		[dashboardApi.reducerPath]: dashboardApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware().concat(
@@ -25,7 +27,8 @@ const store = configureStore({
 			reviewApi.middleware,
 			userApi.middleware,
 			wishlistApi.middleware,
-			productApi.middleware
+			productApi.middleware,
+			dashboardApi.middleware
 		),
 });
 

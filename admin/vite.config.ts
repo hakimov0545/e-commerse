@@ -12,4 +12,13 @@ export default defineConfig({
 		},
 	},
 	server: { port: 4000, open: true },
+	optimizeDeps: {
+		include: ["recharts"],
+		force: true,
+	},
+	build: {
+		commonjsOptions: {
+			include: [/es-toolkit/, /node_modules/],
+		},
+	},
 });

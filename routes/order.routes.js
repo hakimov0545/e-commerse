@@ -188,4 +188,11 @@ router.put(
 	orderController.updateStatus
 );
 
+router.delete(
+	"/:id",
+	authMiddleware,
+	adminMiddleware,
+	orderController.delete
+);
+
 export default router;

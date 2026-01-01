@@ -41,6 +41,7 @@ import { useEditFilteredFormValues } from "@/hooks/useFilteredFormValues";
 function EditProductModal({ id }: { id: string }) {
 	const [open, setOpen] = useState(false);
 	const [update] = useUpdateProductMutation();
+	const filterValues = useEditFilteredFormValues(); // ✅ Component body'sida chaqirish
 	const {
 		data: categories,
 		isLoading,
@@ -65,7 +66,6 @@ function EditProductModal({ id }: { id: string }) {
 	});
 
 	function onSubmit(values: z.infer<typeof formSchema>) {
-		const filterValues = useEditFilteredFormValues();
 		const filtered = filterValues(values);
 		update({ id, data: filtered });
 		setOpen(false);

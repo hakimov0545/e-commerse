@@ -1,6 +1,8 @@
 import { Router } from "express";
+import { param } from "express-validator";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 import { wishlistController } from "../controllers/wishlist.controller.js";
+import { validateMiddleware } from "../middlewares/validation.middleware.js";
 
 const router = Router();
 
@@ -25,6 +27,26 @@ const router = Router();
  *       401:
  *         description: Unauthorized
  */
+/**
+ * @swagger
+ * /api/wishlist/clear:
+ *   delete:
+ *     summary: Clear all items from wishlist
+ *     tags: [Wishlist]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Wishlist cleared successfully
+ *       401:
+ *         description: Unauthorized
+ */
+router.delete(
+	"/clear",
+	authMiddleware,
+	wishlistController.clearWishlist
+);
+
 router.get("/", authMiddleware, wishlistController.getWishlist);
 
 /**
@@ -53,6 +75,14 @@ router.get("/", authMiddleware, wishlistController.getWishlist);
 router.post(
 	"/:productId",
 	authMiddleware,
+	[
+		param("productId")
+			.notEmpty()
+			.withMessage("Product ID is required")
+			.isMongoId()
+			.withMessage("Invalid product ID"),
+	],
+	validateMiddleware,
 	wishlistController.addToWishlist
 );
 
@@ -82,6 +112,14 @@ router.post(
 router.delete(
 	"/:productId",
 	authMiddleware,
+	[
+		param("productId")
+			.notEmpty()
+			.withMessage("Product ID is required")
+			.isMongoId()
+			.withMessage("Invalid product ID"),
+	],
+	validateMiddleware,
 	wishlistController.removeFromWishlist
 );
 

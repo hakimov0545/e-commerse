@@ -31,11 +31,24 @@ export const orderApi = createApi({
 		}),
 
 		// ✅ Barcha buyurtmalar (faqat admin)
-		getAllOrders: builder.query<IOrder[], void>({
-			query: () => ({
-				url: "/orders",
-				method: "GET",
-			}),
+		getAllOrders: builder.query<
+			IOrder[],
+			{ fromDate?: string; toDate?: string; status?: string }
+		>({
+			query: (params) => {
+				const searchParams = new URLSearchParams();
+				if (params?.fromDate)
+					searchParams.append("fromDate", params.fromDate);
+				if (params?.toDate)
+					searchParams.append("toDate", params.toDate);
+				if (params?.status)
+					searchParams.append("status", params.status);
+
+				return {
+					url: `/orders?${searchParams.toString()}`,
+					method: "GET",
+				};
+			},
 			providesTags: ["Order"],
 		}),
 
@@ -51,6 +64,18 @@ export const orderApi = createApi({
 			}),
 			invalidatesTags: ["Order"],
 		}),
+
+		// ✅ Delete order (Admin only)
+		deleteOrder: builder.mutation<
+			{ message: string; deleted?: IOrder },
+			string
+		>({
+			query: (id) => ({
+				url: `/orders/${id}`,
+				method: "DELETE",
+			}),
+			invalidatesTags: ["Order"],
+		}),
 	}),
 });
 
@@ -59,4 +84,5 @@ export const {
 	useGetMyOrdersQuery,
 	useGetAllOrdersQuery,
 	useUpdateOrderStatusMutation,
+	useDeleteOrderMutation,
 } = orderApi;

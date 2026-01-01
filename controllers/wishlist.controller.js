@@ -5,7 +5,25 @@ export const wishlistController = {
 	async getWishlist(req, res, next) {
 		try {
 			const user = await userService.getById(req.user.id);
-			res.json(user.wishlist);
+			if (!user) {
+				return res.status(404).json({
+					message: "User not found",
+				});
+			}
+
+			// Wishlistni populate qilib olish
+			const populatedUser = await userService.model
+				.findById(req.user.id)
+				.populate({
+					path: "wishlist",
+					populate: {
+						path: "category",
+						select: "name",
+					},
+				})
+				.select("wishlist");
+
+			res.json(populatedUser.wishlist || []);
 		} catch (err) {
 			next(err);
 		}
@@ -15,29 +33,55 @@ export const wishlistController = {
 		try {
 			const { productId } = req.params;
 
-			// product mavjudligini tekshirish
+			// Product mavjudligini tekshirish
 			const product = await productService.getById(productId);
 			if (!product) {
-				return res
-					.status(404)
-					.json({ message: "Product not found" });
+				return res.status(404).json({
+					message: "Product not found",
+				});
 			}
 
+			// User mavjudligini tekshirish
 			const user = await userService.getById(req.user.id);
-
-			// agar wishlistda allaqachon bo‘lsa
-			if (user.wishlist.includes(productId)) {
-				return res
-					.status(400)
-					.json({ message: "Product already in wishlist" });
+			if (!user) {
+				return res.status(404).json({
+					message: "User not found",
+				});
 			}
 
-			user.wishlist.push(productId);
-			await user.save();
+			// Agar wishlistda allaqachon bo'lsa
+			const productIdString = productId.toString();
+			const isInWishlist = user.wishlist.some(
+				(id) => id.toString() === productIdString
+			);
+
+			if (isInWishlist) {
+				return res.status(400).json({
+					message: "Product already in wishlist",
+				});
+			}
+
+			// Wishlistga qo'shish
+			const updatedUser = await userService.addToWishlist(
+				req.user.id,
+				productId
+			);
+
+			// Populate qilib qaytarish
+			const populatedUser = await userService.model
+				.findById(req.user.id)
+				.populate({
+					path: "wishlist",
+					populate: {
+						path: "category",
+						select: "name",
+					},
+				})
+				.select("wishlist");
 
 			res.status(201).json({
 				message: "Product added to wishlist",
-				wishlist: user.wishlist,
+				wishlist: populatedUser.wishlist,
 			});
 		} catch (err) {
 			next(err);
@@ -48,22 +92,71 @@ export const wishlistController = {
 		try {
 			const { productId } = req.params;
 
+			// User mavjudligini tekshirish
 			const user = await userService.getById(req.user.id);
-
-			if (!user.wishlist.includes(productId)) {
-				return res
-					.status(404)
-					.json({ message: "Product not in wishlist" });
+			if (!user) {
+				return res.status(404).json({
+					message: "User not found",
+				});
 			}
 
-			user.wishlist = user.wishlist.filter(
-				(id) => id.toString() !== productId
+			// Product wishlistda borligini tekshirish
+			const productIdString = productId.toString();
+			const isInWishlist = user.wishlist.some(
+				(id) => id.toString() === productIdString
 			);
-			await user.save();
+
+			if (!isInWishlist) {
+				return res.status(404).json({
+					message: "Product not in wishlist",
+				});
+			}
+
+			// Wishlistdan olib tashlash
+			const updatedUser = await userService.removeFromWishlist(
+				req.user.id,
+				productId
+			);
+
+			// Populate qilib qaytarish
+			const populatedUser = await userService.model
+				.findById(req.user.id)
+				.populate({
+					path: "wishlist",
+					populate: {
+						path: "category",
+						select: "name",
+					},
+				})
+				.select("wishlist");
 
 			res.json({
 				message: "Product removed from wishlist",
-				wishlist: user.wishlist,
+				wishlist: populatedUser.wishlist,
+			});
+		} catch (err) {
+			next(err);
+		}
+	},
+
+	async clearWishlist(req, res, next) {
+		try {
+			// User mavjudligini tekshirish
+			const user = await userService.getById(req.user.id);
+			if (!user) {
+				return res.status(404).json({
+					message: "User not found",
+				});
+			}
+
+			// Wishlistni tozalash
+			await userService.model.findByIdAndUpdate(req.user.id, {
+				$set: { wishlist: [] },
+			});
+
+			res.json({
+				message: "Wishlist cleared successfully",
+				wishlist: [],
 			});
 		} catch (err) {
 			next(err);

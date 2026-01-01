@@ -11,21 +11,18 @@ const __dirname = dirname(__filename);
 class FileService {
 	save(file) {
 		try {
-			const fileName = uuidv4() + ".jpg";
-			console.log(fileName);
-			const currentDir = __dirname;
-			console.log(currentDir);
-			const staticDir = path.join(currentDir, "..", "static");
-			const filePath = path.join(staticDir, fileName);
-
-			if (!fs.existsSync(staticDir)) {
-				fs.mkdirSync(staticDir, { recursive: true });
+			// Multer dan kelmagan file bo'lsa (fieldname, originalname va.b.z)
+			if (!file || !file.filename) {
+				throw new Error("Invalid file object");
 			}
 
-			file.mv(filePath);
-			return fileName;
+			// Multer allaqachon fayl saqlab bo'lganidan, shundan faqat nom olish
+			// Multer uploads/ papkasiga saqlab bo'ladi
+			return "uploads/" + file.filename;
 		} catch (error) {
-			throw BaseError.BadRequest("Error saving file " + error);
+			throw BaseError.BadRequest(
+				"Error processing file " + error
+			);
 		}
 	}
 }

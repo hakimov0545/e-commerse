@@ -42,22 +42,28 @@ export interface IUpdateCategoryDto {
 // ORDER TYPES
 
 export interface IOrderProduct {
-	product: string;
+	product: IProduct;
+	quantity: number;
+}
+
+export interface IAddOrderProduct {
+	product: IProduct;
 	quantity: number;
 }
 
 export interface IOrder {
 	_id: string;
-	user: string;
+	user: IUser;
 	products: IOrderProduct[];
 	status: "pending" | "shipped" | "delivered" | "cancelled";
 	address?: string;
 	createdAt: string;
 	updatedAt: string;
+	totalAmount: number;
 }
 
 export interface ICreateOrderDto {
-	products: IOrderProduct[];
+	products: IAddOrderProduct[];
 	address?: string;
 }
 
@@ -104,11 +110,12 @@ export interface IUpdateProductDto {
 
 export interface IReview {
 	_id: string;
-	product: string; // product ID
-	user: string; // user ID
+	product: string | { _id: string; name: string }; // product ID yoki populated product
+	user: string | { _id: string; name: string; lastname: string }; // user ID yoki populated user
 	rating: number;
 	comment: string;
 	createdAt: string;
+	updatedAt?: string;
 }
 
 export interface ICreateReviewDto {
@@ -142,4 +149,61 @@ export interface IUpdateUserProfileDto {
 	email?: string;
 	address?: string;
 	phone?: string;
+}
+
+export interface IDashboardStats {
+	totalUsers: number;
+	totalProducts: number;
+	totalOrders: number;
+	totalReviews: number;
+	totalCategories: number;
+	totalRevenue: number;
+}
+
+export interface IRevenueStats {
+	revenue: number;
+	orders: number;
+	period: string;
+}
+
+export interface IOrderStatusStat {
+	status: string;
+	count: number;
+	totalAmount: number;
+}
+
+export interface IRevenueByDate {
+	date: string;
+	revenue: number;
+	orders: number;
+}
+
+export interface IOrdersByDate {
+	date: string;
+	count: number;
+}
+
+export interface ITopProduct {
+	productId: string;
+	productName: string;
+	productPrice: number;
+	totalQuantity: number;
+	totalRevenue: number;
+}
+
+export interface IProductsByCategory {
+	categoryName: string;
+	count: number;
+	[key: string]: any;
+}
+
+export interface IDashboardData {
+	stats: IDashboardStats;
+	revenueStats: IRevenueStats;
+	orderStatusStats: IOrderStatusStat[];
+	revenueByDate: IRevenueByDate[];
+	ordersByDate: IOrdersByDate[];
+	topProducts: ITopProduct[];
+	recentOrders: any[];
+	productsByCategory: IProductsByCategory[];
 }

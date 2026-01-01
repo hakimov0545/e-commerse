@@ -2,7 +2,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithReauth } from "./base.query";
 import type {
-	ICreateProductDto,
 	IPopulatedProduct,
 	IProduct,
 	IUpdateProductDto,

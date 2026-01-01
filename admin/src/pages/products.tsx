@@ -60,7 +60,7 @@ function ProductsPage() {
 							<TableCell>{p.name}</TableCell>
 							<TableCell>{p.description}</TableCell>
 							<TableCell>{p.price}</TableCell>
-							<TableCell>{p.category.name}</TableCell>
+							<TableCell>{p.category?.name}</TableCell>
 							<TableCell>
 								<div className="flex gap-2">
 									{p.images.map((i) => (

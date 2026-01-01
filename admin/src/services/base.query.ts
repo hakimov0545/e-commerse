@@ -8,7 +8,14 @@ import { API_URL } from "@/constants";
 
 const rawBaseQuery = fetchBaseQuery({
 	baseUrl: `${API_URL}/api`,
-	prepareHeaders: (headers) => {
+	prepareHeaders: (headers, { getState }) => {
+		// FormData bo'lsa Content-Type o'chib tashlang (brauzer avtomatik qiladi)
+		const body = (getState() as any)?.body;
+		if (body instanceof FormData) {
+			// FormData uchun Content-Type delete qilish
+			headers.delete("Content-Type");
+		}
+
 		const token = localStorage.getItem("accessToken");
 		if (token) {
 			headers.set("Authorization", `Bearer ${token}`);
