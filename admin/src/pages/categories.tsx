@@ -41,7 +41,7 @@ function CategoriesPage() {
 				<TableCaption>Categories</TableCaption>
 				<TableHeader>
 					<TableRow>
-						<TableHead className="w-[100px]">N</TableHead>
+						<TableHead className="w-25">N</TableHead>
 						<TableHead>Name</TableHead>
 						<TableHead>Description</TableHead>
 						<TableHead>Actions</TableHead>

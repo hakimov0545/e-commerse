@@ -84,9 +84,7 @@ function WishlistPage() {
 					</TableCaption>
 					<TableHeader>
 						<TableRow>
-							<TableHead className="w-[100px]">
-								N
-							</TableHead>
+							<TableHead className="w-25">N</TableHead>
 							<TableHead>Product</TableHead>
 							<TableHead>Category</TableHead>
 							<TableHead>Price</TableHead>
@@ -137,7 +135,7 @@ function WishlistPage() {
 																key={
 																	imgIdx
 																}
-																className="w-[70px] h-[70px] object-cover rounded"
+																className="w-17.5 h-17.5 object-cover rounded"
 																src={`${API_URL}/${img}`}
 																alt={
 																	product.name

@@ -30,8 +30,8 @@ export function ProductCard({
 			)}
 		>
 			{/* Image Container */}
-			<div className="relative aspect-[4/3] overflow-hidden bg-muted">
-				<div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
+			<div className="relative aspect-4/3 overflow-hidden bg-muted">
+				<div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
 
 				{product.images.length > 0 ? (
 					<>
@@ -134,7 +134,7 @@ export function ProductCard({
 			</div>
 
 			{/* Hover Glow Effect */}
-			<div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+			<div className="absolute inset-0 rounded-lg bg-linear-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 		</Card>
 	);
 }

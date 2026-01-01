@@ -42,7 +42,7 @@ function ProductsPage() {
 				<TableCaption>Products</TableCaption>
 				<TableHeader>
 					<TableRow>
-						<TableHead className="w-[100px]">N</TableHead>
+						<TableHead className="w-25">N</TableHead>
 						<TableHead>Name</TableHead>
 						<TableHead>Description</TableHead>
 						<TableHead>Price</TableHead>
@@ -65,7 +65,7 @@ function ProductsPage() {
 								<div className="flex gap-2">
 									{p.images.map((i) => (
 										<img
-											className="w-[70px]"
+											className="w-17.5"
 											src={`${API_URL}/${i}`}
 											alt=""
 										/>

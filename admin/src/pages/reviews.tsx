@@ -63,9 +63,7 @@ function ReviewsPage() {
 					<TableCaption>All Reviews</TableCaption>
 					<TableHeader>
 						<TableRow>
-							<TableHead className="w-[100px]">
-								N
-							</TableHead>
+							<TableHead className="w-25">N</TableHead>
 							<TableHead>Product</TableHead>
 							<TableHead>User</TableHead>
 							<TableHead>Rating</TableHead>

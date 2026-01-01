@@ -274,7 +274,7 @@ function OrdersPage() {
 				<TableCaption>All Orders</TableCaption>
 				<TableHeader>
 					<TableRow>
-						<TableHead className="w-[50px]">N</TableHead>
+						<TableHead className="w-12.5">N</TableHead>
 						<TableHead>User</TableHead>
 						<TableHead>Products</TableHead>
 						<TableHead>Address</TableHead>
@@ -328,7 +328,7 @@ function OrdersPage() {
 										})
 									}
 								>
-									<SelectTrigger className="w-[130px]">
+									<SelectTrigger className="w-32.5">
 										<Badge
 											className={getStatusColor(
 												order.status
@@ -379,7 +379,7 @@ function OrdersPage() {
 				</TableBody>
 			</Table>
 			<div className="mt-6 flex justify-end">
-				<div className="bg-gray-100 rounded-lg p-4 min-w-[250px]">
+				<div className="bg-gray-100 rounded-lg p-4 min-w-62.5">
 					<div className="flex justify-between items-center">
 						<span className="text-lg font-semibold mr-2">
 							Grand Total:

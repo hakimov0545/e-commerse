@@ -210,7 +210,7 @@ function AddProductModal() {
 													field.onChange
 												}
 											>
-												<SelectTrigger className="w-[180px]">
+												<SelectTrigger className="w-45">
 													<SelectValue placeholder="Select a category" />
 												</SelectTrigger>
 												<SelectContent>

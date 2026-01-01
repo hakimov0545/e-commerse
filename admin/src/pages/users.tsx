@@ -17,11 +17,7 @@ import { Trash2 } from "lucide-react";
 import type { IUser } from "@/types";
 
 function UsersPage() {
-	const {
-		data: users,
-		isLoading,
-		error,
-	} = useGetAllUsersQuery();
+	const { data: users, isLoading, error } = useGetAllUsersQuery();
 	const [deleteUser] = useDeleteUserMutation();
 
 	if (isLoading) return <p>Loading...</p>;
@@ -51,9 +47,7 @@ function UsersPage() {
 					<TableCaption>All Users</TableCaption>
 					<TableHeader>
 						<TableRow>
-							<TableHead className="w-[100px]">
-								N
-							</TableHead>
+							<TableHead className="w-25">N</TableHead>
 							<TableHead>Name</TableHead>
 							<TableHead>Email</TableHead>
 							<TableHead>Role</TableHead>

@@ -163,7 +163,7 @@ function Dashboard() {
 						>
 							<SelectTrigger
 								id="period"
-								className="w-[140px]"
+								className="w-35"
 							>
 								<SelectValue />
 							</SelectTrigger>
@@ -193,7 +193,7 @@ function Dashboard() {
 							onChange={(e) =>
 								setFromDate(e.target.value)
 							}
-							className="w-[160px]"
+							className="w-40"
 						/>
 					</div>
 
@@ -206,7 +206,7 @@ function Dashboard() {
 							onChange={(e) =>
 								setToDate(e.target.value)
 							}
-							className="w-[160px]"
+							className="w-40"
 						/>
 					</div>
 				</div>
