@@ -8,6 +8,7 @@ import { API_URL } from "@/constants";
 
 const rawBaseQuery = fetchBaseQuery({
 	baseUrl: `${API_URL}/api`,
+	credentials: "include",
 	prepareHeaders: (headers, { getState }) => {
 		// FormData bo'lsa Content-Type o'chib tashlang (brauzer avtomatik qiladi)
 		const body = (getState() as any)?.body;
@@ -42,7 +43,7 @@ export const baseQueryWithReauth: BaseQueryFn<
 				body: { refreshToken },
 			},
 			api,
-			extraOptions
+			extraOptions,
 		);
 
 		if (
