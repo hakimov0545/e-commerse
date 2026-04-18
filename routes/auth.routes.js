@@ -63,7 +63,7 @@ router.post(
 			.withMessage("Password must be at least 6 characters"),
 	],
 	validateMiddleware,
-	AuthController.register
+	AuthController.register,
 );
 
 /**
@@ -102,7 +102,7 @@ router.post(
 			.withMessage("Password is required"),
 	],
 	validateMiddleware,
-	AuthController.login
+	AuthController.login,
 );
 
 /**
@@ -120,13 +120,23 @@ router.post("/logout", AuthController.logout);
 /**
  * @swagger
  * /refresh:
- *   get:
+ *   post:
  *     summary: Token yangilash
  *     tags: [Auth]
+ *     requestBody:
+ *       required: false
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               refreshToken:
+ *                 type: string
  *     responses:
  *       200:
  *         description: New tokens returned
  */
+router.post("/refresh", AuthController.refresh);
 router.get("/refresh", AuthController.refresh);
 
 export default router;

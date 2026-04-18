@@ -1,6 +1,9 @@
 import dotenv from "dotenv";
 dotenv.config();
 
+import { setServers } from "node:dns/promises";
+setServers(["1.1.1.1", "8.8.8.8"]);
+
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -24,14 +27,49 @@ const app = express();
 const PORT = process.env.PORT || 5050;
 const DB_URL = process.env.DB_URL;
 
-app.use(
-	cors({
-		credentials: true,
-		origin: process.env.CLIENT_URL,
-	})
-);
+const allowedOrigins = [
+	process.env.CLIENT_URL,
+	"http://localhost:4000",
+	"http://127.0.0.1:4000",
+	"http://localhost:3000",
+	"http://127.0.0.1:3000",
+	`http://localhost:${PORT}`,
+	`http://127.0.0.1:${PORT}`,
+];
+
+const corsOptions = {
+	credentials: true,
+	origin: (origin, callback) => {
+		const requestOrigin = origin || "(no origin)";
+
+		if (!origin) {
+			console.log(`CORS: accepting request with no origin`);
+			return callback(null, true);
+		}
+
+		if (allowedOrigins.includes(origin)) {
+			console.log(`CORS: accepting origin ${requestOrigin}`);
+			return callback(null, true);
+		}
+
+		console.warn(`CORS: rejecting origin ${requestOrigin}`);
+		return callback(
+			new Error(
+				`CORS policy does not allow origin ${requestOrigin}`,
+			),
+			false,
+		);
+	},
+	methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+	allowedHeaders: ["Content-Type", "Authorization", "Accept"],
+	exposedHeaders: ["Authorization", "X-Total-Count"],
+	maxAge: 86400,
+};
+
+app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions));
 app.use(express.json());
-app.use(cookieParser({}));
+app.use(cookieParser());
 app.use(logger());
 app.use(express.static("static"));
 app.use("/uploads", express.static("uploads")); // 📸 /uploads prefix bilan serve qilish
@@ -58,7 +96,7 @@ const bootstrap = async () => {
 
 		app.listen(PORT, () => {
 			console.log(
-				`🚀 Server listening on: http://localhost:${PORT}`
+				`🚀 Server listening on: http://localhost:${PORT}`,
 			);
 		});
 	} catch (error) {

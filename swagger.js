@@ -12,7 +12,8 @@ const options = {
 		},
 		servers: [
 			{
-				url: "http://localhost:5050/api/auth",
+				// url: "http://localhost:5050/api/auth",
+				url: "https://e-commerse-zbt1.onrender.com/api/auth",
 				description: "Local server",
 			},
 		],
@@ -26,6 +27,6 @@ export function swaggerDocs(app) {
 	app.use(
 		"/api/docs",
 		swaggerUi.serve,
-		swaggerUi.setup(swaggerSpec)
+		swaggerUi.setup(swaggerSpec),
 	);
 }

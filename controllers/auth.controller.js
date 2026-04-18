@@ -23,8 +23,8 @@ class AuthController {
 			// Refresh tokenni cookie ga yozish (xavfsizroq)
 			res.cookie("refreshToken", data.refreshToken, {
 				httpOnly: true,
-				secure: true, // productionda true bo‘lsin
-				sameSite: "strict",
+				secure: process.env.NODE_ENV === "production",
+				sameSite: "none",
 				maxAge: 30 * 24 * 60 * 60 * 1000, // 30 kun
 			});
 
@@ -41,8 +41,8 @@ class AuthController {
 
 			res.cookie("refreshToken", data.refreshToken, {
 				httpOnly: true,
-				secure: true,
-				sameSite: "strict",
+				secure: process.env.NODE_ENV === "production",
+				sameSite: "none",
 				maxAge: 30 * 24 * 60 * 60 * 1000,
 			});
 
@@ -54,7 +54,8 @@ class AuthController {
 
 	async logout(req, res) {
 		try {
-			const { refreshToken } = req.cookies;
+			const refreshToken =
+				req.cookies.refreshToken || req.body?.refreshToken;
 			await authService.logout(refreshToken);
 
 			res.clearCookie("refreshToken");
@@ -66,13 +67,14 @@ class AuthController {
 
 	async refresh(req, res) {
 		try {
-			const { refreshToken } = req.cookies;
+			const refreshToken =
+				req.cookies.refreshToken || req.body?.refreshToken;
 			const data = await authService.refresh(refreshToken);
 
 			res.cookie("refreshToken", data.refreshToken, {
 				httpOnly: true,
-				secure: true,
-				sameSite: "strict",
+				secure: process.env.NODE_ENV === "production",
+				sameSite: "none",
 				maxAge: 30 * 24 * 60 * 60 * 1000,
 			});
 
