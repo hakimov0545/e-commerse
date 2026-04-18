@@ -13,7 +13,7 @@ const options = {
 		servers: [
 			{
 				// url: "http://localhost:5050/api/auth",
-				url: "https://e-commerse-zbt1.onrender.com/api/auth",
+				url: "https://e-commerse-zbt1.onrender.com",
 				description: "Local server",
 			},
 		],
