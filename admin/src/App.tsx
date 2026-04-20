@@ -4,15 +4,15 @@ import { ToastProvider } from "./context/toast.provider";
 import Router from "./router";
 
 function App() {
-	return (
-		<ToastProvider>
-			<AuthProvider>
-				<BrowserRouter>
-					<Router />
-				</BrowserRouter>
-			</AuthProvider>
-		</ToastProvider>
-	);
+  return (
+    <ToastProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
+      </AuthProvider>
+    </ToastProvider>
+  );
 }
 
 export default App;
