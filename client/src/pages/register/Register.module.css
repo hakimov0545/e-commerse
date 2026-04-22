@@ -46,7 +46,7 @@ input {
   font-size: 14px;
 }
 
-.btn-primary {
+.btn_primary {
   width: 100%;
   background: #e74c3c;
   color: #fff;
@@ -57,11 +57,11 @@ input {
   margin-top: 40px;
 }
 
-.btn-primary:hover {
+.btn_primary:hover {
   background: #c0392b;
 }
 
-.btn-google {
+.btn_google {
   width: 100%;
   background: #fff;
   border: 1px solid #ccc;
@@ -75,17 +75,22 @@ input {
   margin-top: 16px;
 }
 
-.btn-google img {
+.btn_google img {
   width: 18px;
 }
 
-.login-text {
+.login_text {
   text-align: center;
-  margin-top: 30px;
-  font-size: 13px;
+  margin-top: 20px;
+  font-size: 15px;
 }
 
-.login-text span {
+.login_text span {
   font-weight: bold;
   cursor: pointer;
+}
+
+.error {
+  color: #c0392b;
+  font-size: 14px;
 }

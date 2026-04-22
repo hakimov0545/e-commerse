@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 import { SlBasket } from "react-icons/sl";
 import { FaRegHeart } from "react-icons/fa6";
+import { useAuth } from "../../stores/user.slice";
 
 function Navbar() {
+  const { user } = useAuth();
   return (
     <nav>
       <div className="container">
@@ -41,9 +43,13 @@ function Navbar() {
               <button className="btn trash">
                 <SlBasket />
               </button>
-              <Link className="btn_signup" to="/register">
-                Sign up
-              </Link>
+              {user ? (
+                <div>{user.name}</div>
+              ) : (
+                <Link className="btn_signup" to="/register">
+                  Sign up
+                </Link>
+              )}
             </div>
           </div>
         </div>
