@@ -1,57 +1,25 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import styles from "./Register.module.css";
-import authService from "../../service/auth.service";
-import { setAuth, useAuth } from "../../stores/user.slice";
+import { useAuth } from "../../stores/user.slice";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useAuthForm } from "./useAuthForm";
 
 function Register() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
   const { user } = useAuth();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const onSubmit = async (data) => {
-    try {
-      const res = await authService.register(data);
-      console.log(res);
-      if (res.status == 201) {
-        const { user, accessToken } = res.data;
-        dispatch(setAuth({ user, accessToken }));
-        navigate("/");
-      } else {
-        alert(res.data.message);
-      }
-    } catch (error) {
-      console.log("Error:", error);
-      console.log("Response:", error.response);
-      console.log("Data:", error.response?.data);
 
-      let message = "Xatolik yuz berdi";
-      if (error.response) {
-        // Server javobi bor (400, 401, 500, etc.)
-        message =
-          error.response.data?.message || `Xato: ${error.response.status}`;
-      } else if (error.request) {
-        // Server javobi yo'q (network error)
-        message = "Serverga ulanish mumkin emas";
-      } else {
-        message = error.message;
-      }
-      alert(message);
-    }
-  };
+  const { onSubmit } = useAuthForm();
 
   useEffect(() => {
     if (user) {
       navigate("/");
     }
-  }, []);
+  }, [user]);
 
   return (
     <div>
@@ -75,7 +43,7 @@ function Register() {
               placeholder="Lastname"
               {...register("lastname", { required: true, minLength: 2 })}
             />
-            {errors.name && (
+            {errors.lastname && (
               <span className={styles.error}>Lastname is required</span>
             )}
             <input
