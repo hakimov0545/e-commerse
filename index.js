@@ -28,41 +28,44 @@ const PORT = process.env.PORT || 5050;
 const DB_URL = process.env.DB_URL;
 
 const allowedOrigins = [
-  process.env.CLIENT_URL,
-  "http://localhost:4000",
-  "http://127.0.0.1:4000",
-  "http://localhost:3000",
-  "http://127.0.0.1:3000",
-  `http://localhost:${PORT}`,
-  `http://127.0.0.1:${PORT}`,
-  `http://localhost:5173`,
+	process.env.CLIENT_URL,
+	"http://localhost:4000",
+	"http://127.0.0.1:4000",
+	"http://localhost:3000",
+	"http://127.0.0.1:3000",
+	`http://localhost:${PORT}`,
+	`http://127.0.0.1:${PORT}`,
+	`http://localhost:5173`,
+	"https://abdulaziz.uz",
 ];
 
 const corsOptions = {
-  credentials: true,
-  origin: (origin, callback) => {
-    const requestOrigin = origin || "(no origin)";
+	credentials: true,
+	origin: (origin, callback) => {
+		const requestOrigin = origin || "(no origin)";
 
-    if (!origin) {
-      console.log(`CORS: accepting request with no origin`);
-      return callback(null, true);
-    }
+		if (!origin) {
+			console.log(`CORS: accepting request with (no origin)`);
+			return callback(null, true);
+		}
 
-    if (allowedOrigins.includes(origin)) {
-      console.log(`CORS: accepting origin ${requestOrigin}`);
-      return callback(null, true);
-    }
+		if (allowedOrigins.includes(origin)) {
+			console.log(`CORS: accepting origin ${requestOrigin}`);
+			return callback(null, true);
+		}
 
-    console.warn(`CORS: rejecting origin ${requestOrigin}`);
-    return callback(
-      new Error(`CORS policy does not allow origin ${requestOrigin}`),
-      false,
-    );
-  },
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "Accept"],
-  exposedHeaders: ["Authorization", "X-Total-Count"],
-  maxAge: 86400,
+		console.warn(`CORS: rejecting origin ${requestOrigin}`);
+		return callback(
+			new Error(
+				`CORS policy does not allow origin ${requestOrigin}`,
+			),
+			false,
+		);
+	},
+	methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+	allowedHeaders: ["Content-Type", "Authorization", "Accept"],
+	exposedHeaders: ["Authorization", "X-Total-Count"],
+	maxAge: 86400,
 };
 
 app.use(cors(corsOptions));
@@ -89,16 +92,18 @@ app.use(errorHandler);
 swaggerDocs(app);
 
 const bootstrap = async () => {
-  try {
-    await mongoose.connect(DB_URL);
-    console.log("✅ Connected to MongoDB");
+	try {
+		await mongoose.connect(DB_URL);
+		console.log("✅ Connected to MongoDB");
 
-    app.listen(PORT, () => {
-      console.log(`🚀 Server listening on: http://localhost:${PORT}`);
-    });
-  } catch (error) {
-    console.log(`❌ Error connecting with DB: ${error}`);
-  }
+		app.listen(PORT, () => {
+			console.log(
+				`🚀 Server listening on: http://localhost:${PORT}`,
+			);
+		});
+	} catch (error) {
+		console.log(`❌ Error connecting with DB: ${error}`);
+	}
 };
 
 bootstrap();

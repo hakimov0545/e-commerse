@@ -1,0 +1,4 @@
+29/04/2026, 16:06:41 | ::1 | POST | /api/auth/login | 200 | 1018.9ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+29/04/2026, 16:06:44 | ::1 | GET | /api/dashboard?period=month | 200 | 2395.6ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+29/04/2026, 16:07:12 | ::1 | POST | /api/auth/refresh | 200 | 549.9ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+29/04/2026, 16:07:12 | ::1 | GET | /api/categories | 200 | 146.0ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"

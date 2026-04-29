@@ -28,3 +28,8 @@
 22.04.2026, 15:10:26 | ::1 | POST | /api/auth/register | 400 | 145.1ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
 22.04.2026, 15:12:15 | ::1 | POST | /api/auth/register | 400 | 118.7ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
 22.04.2026, 15:13:02 | ::1 | POST | /api/auth/register | 400 | 647.9ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+22/04/2026, 16:05:58 | ::1 | POST | /api/auth/register | 201 | 944.0ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+22/04/2026, 16:09:21 | ::1 | POST | /api/auth/refresh | 200 | 765.4ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+22/04/2026, 16:09:22 | ::1 | GET | /api/dashboard?period=month | 200 | 1036.2ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+22/04/2026, 16:10:48 | ::ffff:127.0.0.1 | GET | /api/dashboard?period=month | 200 | 2422.8ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+22/04/2026, 16:34:19 | ::1 | GET | /api/dashboard?period=month | 200 | 1119.5ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
