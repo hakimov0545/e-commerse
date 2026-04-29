@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import styles from "./Register.module.css";
 import { useAuth } from "../../stores/user.slice";
 import { useEffect } from "react";
-import { useAuthForm } from "./useAuthForm";
+import { useAuthForm } from "../../hooks/useAuthForm";
 
 function Register() {
   const {
@@ -13,7 +13,9 @@ function Register() {
   } = useForm();
   const { user } = useAuth();
 
-  const { onSubmit } = useAuthForm();
+  const { onSubmit } = useAuthForm("register");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {

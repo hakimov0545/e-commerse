@@ -1,0 +1,7 @@
+24.04.2026, 15:20:06 | ::1 | POST | /api/login | 404 | 3.7ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+24.04.2026, 15:20:46 | ::1 | POST | /api/auth/login | 200 | 1577.2ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+24.04.2026, 15:26:10 | ::1 | POST | /api/auth/login | 200 | 2518.9ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+24.04.2026, 15:26:24 | ::1 | POST | /api/auth/login | 200 | 1478.4ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+24.04.2026, 15:26:53 | ::1 | POST | /api/auth/login | 200 | 858.8ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+24.04.2026, 15:28:32 | ::1 | POST | /api/auth/login | 200 | 1098.0ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+24.04.2026, 15:29:09 | ::1 | POST | /api/auth/login | 200 | 427.1ms | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"

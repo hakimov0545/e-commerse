@@ -89,3 +89,8 @@ input {
   font-weight: bold;
   cursor: pointer;
 }
+
+.error {
+  color: #c0392b;
+  font-size: 14px;
+}
