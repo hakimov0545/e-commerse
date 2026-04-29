@@ -1,15 +1,18 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import authService from "../../service/auth.service";
-import { setAuth } from "../../stores/user.slice";
+import authService from "../service/auth.service";
+import { setAuth } from "../stores/user.slice";
 
-export const useAuthForm = () => {
+export const useAuthForm = (type = "login") => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onSubmit = async (data) => {
     try {
-      const res = await authService.register(data);
-      if (res.status === 201) {
+      const res =
+        type === "login"
+          ? await authService.login(data)
+          : await authService.register(data);
+      if (res.status === 201 || res.status === 200) {
         const { user, accessToken } = res.data;
         dispatch(setAuth({ user, accessToken }));
         navigate("/");

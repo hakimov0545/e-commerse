@@ -2,7 +2,7 @@ import api from "../api";
 
 class AuthService {
   async login(data) {
-    return await api.post("/login", data);
+    return await api.post("/auth/login", data);
   }
 
   async register(data) {
