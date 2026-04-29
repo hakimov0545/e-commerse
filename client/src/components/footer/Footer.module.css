@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.footer {
+  background: #000;
+  color: #fff;
+  padding: 60px 80px 20px;
+  font-family: sans-serif;
+}
+
+.footer_container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 40px;
+}
+
+.footer_col h3,
+.footer_col h4 {
+  margin-bottom: 15px;
+}
+
+.footer_col p {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.subscribe {
+  font-weight: bold;
+  color: #fff;
+}
+
+.email_box {
+  display: flex;
+  border: 1px solid #555;
+  margin-top: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.email_box input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #fff;
+}
+
+.email_box button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 0 15px;
+  cursor: pointer;
+}
+
+.app_box {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.app_box img {
+  width: 80px;
+}
+
+.store_buttons img {
+  width: 120px;
+  margin-bottom: 5px;
+}
+
+.small_text {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.socials {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+.socials svg {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.socials svg:hover {
+  color: #999;
+}
+
+.footer_bottom {
+  text-align: center;
+  margin-top: 40px;
+  border-top: 1px solid #222;
+  padding-top: 15px;
+  font-size: 13px;
+  color: #777;
+}
