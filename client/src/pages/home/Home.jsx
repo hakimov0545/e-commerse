@@ -1,7 +1,6 @@
 import "./Home.css";
 import getAllProducts from "../../hooks/useProducts";
 import { useMutation } from "@tanstack/react-query";
-import mainService from "../../service/main.service";
 
 function Home() {
   const { data: products, isLoading, error } = getAllProducts();

@@ -37,6 +37,7 @@ function Login() {
               type="email"
               placeholder="Email"
               autoComplete="email"
+              defaultValue={"bekhzodr2001@gmail.com"}
               {...register("email", { required: true })}
             />
             {errors.email && (
@@ -46,6 +47,7 @@ function Login() {
               type="password"
               placeholder="Password"
               autoComplete="current-password"
+              defaultValue={"123456"}
               {...register("password", { required: true, minLength: 6 })}
             />
             {errors.password && (
