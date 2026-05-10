@@ -7,6 +7,7 @@ import { reviewApi } from "@/services/review.api";
 import { userApi } from "@/services/user.api";
 import { wishlistApi } from "@/services/wishlist.api";
 import { dashboardApi } from "@/services/dashboard.api";
+import { contactApi } from "@/services/contact.api";
 
 const store = configureStore({
 	reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
 		[userApi.reducerPath]: userApi.reducer,
 		[wishlistApi.reducerPath]: wishlistApi.reducer,
 		[dashboardApi.reducerPath]: dashboardApi.reducer,
+		[contactApi.reducerPath]: contactApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware().concat(
@@ -28,7 +30,8 @@ const store = configureStore({
 			userApi.middleware,
 			wishlistApi.middleware,
 			productApi.middleware,
-			dashboardApi.middleware
+			dashboardApi.middleware,
+			contactApi.middleware,
 		),
 });
 

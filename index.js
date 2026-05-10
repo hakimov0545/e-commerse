@@ -19,6 +19,7 @@ import orderRouter from "./routes/order.routes.js";
 import reviewRouter from "./routes/review.routes.js";
 import wishlistRouter from "./routes/wishlist.routes.js";
 import dashboardRouter from "./routes/dashboard.routes.js";
+import contactRouter from "./routes/contact.routes.js";
 import { swaggerDocs } from "./swagger.js";
 import { logger } from "./middlewares/logger.middleware.js";
 
@@ -77,6 +78,9 @@ app.use(express.static("static"));
 app.use("/uploads", express.static("uploads")); // 📸 /uploads prefix bilan serve qilish
 
 // 🔹 Routes
+app.get("/", (req, res) => {
+	res.send("Welcome to E-Commerce API");
+});
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
@@ -85,6 +89,7 @@ app.use("/api/orders", orderRouter);
 app.use("/api/reviews", reviewRouter);
 app.use("/api/wishlist", wishlistRouter);
 app.use("/api/dashboard", dashboardRouter);
+app.use("/api/contacts", contactRouter);
 
 // 🔹 Error handler (oxirida bo‘lishi shart)
 app.use(errorHandler);

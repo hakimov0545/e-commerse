@@ -6,6 +6,7 @@ import {
 	SquarePen,
 	ChartColumnStacked,
 	Heart,
+	Phone,
 } from "lucide-react";
 
 import {
@@ -55,6 +56,11 @@ const items = [
 		title: "Wishlist",
 		url: "/wishlist",
 		icon: Heart,
+	},
+	{
+		title: "Contacts",
+		url: "/contacts",
+		icon: Phone,
 	},
 ];
 
