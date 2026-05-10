@@ -15,10 +15,17 @@ const userSchema = new Schema(
 		phone: { type: String },
 		wishlist: [{ type: Schema.ObjectId, ref: "Product" }],
 		orders: [{ type: Schema.ObjectId, ref: "Order" }],
+		verificationCode: { type: String, select: false },
+		verificationCodeExpiry: { type: Date, select: false },
+		codeVerified: {
+			type: Boolean,
+			default: false,
+			select: false,
+		},
 	},
 	{
 		timestamps: true,
-	}
+	},
 );
 
 const userModel = model("User", userSchema);

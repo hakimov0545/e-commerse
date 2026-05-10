@@ -18,7 +18,7 @@ const router = Router();
 
 /**
  * @swagger
- * /register:
+ * /api/auth/register:
  *   post:
  *     summary: Ro‘yxatdan o‘tish
  *     tags: [Auth]
@@ -68,7 +68,7 @@ router.post(
 
 /**
  * @swagger
- * /login:
+ * /api/auth/login:
  *   post:
  *     summary: Login qilish
  *     tags: [Auth]
@@ -107,7 +107,7 @@ router.post(
 
 /**
  * @swagger
- * /logout:
+ * /api/auth/logout:
  *   post:
  *     summary: Logout qilish
  *     tags: [Auth]
@@ -119,7 +119,7 @@ router.post("/logout", AuthController.logout);
 
 /**
  * @swagger
- * /refresh:
+ * /api/auth/refresh:
  *   post:
  *     summary: Token yangilash
  *     tags: [Auth]
@@ -138,5 +138,124 @@ router.post("/logout", AuthController.logout);
  */
 router.post("/refresh", AuthController.refresh);
 router.get("/refresh", AuthController.refresh);
+
+/**
+ * @swagger
+ * /api/auth/forgot-password:
+ *   post:
+ *     summary: Parolni unutdingiz - Verification code yuborish
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: user@example.com
+ *     responses:
+ *       200:
+ *         description: Verification code emailga yuborildi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *       400:
+ *         description: Email topilmadi yoki boshqa xato
+ */
+router.post("/forgot-password", AuthController.forgotPassword);
+
+/**
+ * @swagger
+ * /api/auth/verify-code:
+ *   post:
+ *     summary: Verification code tekshirish
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - verificationCode
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: user@example.com
+ *               verificationCode:
+ *                 type: string
+ *                 example: "123456"
+ *     responses:
+ *       200:
+ *         description: Verification code verified, reset token returned
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 resetToken:
+ *                   type: string
+ *       400:
+ *         description: Verification code expired yoki noto'g'ri
+ */
+router.post("/verify-code", AuthController.verifyCode);
+
+/**
+ * @swagger
+ * /api/auth/reset-password:
+ *   post:
+ *     summary: Parolni yangilash (reset token kerak)
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - newPassword
+ *             properties:
+ *               newPassword:
+ *                 type: string
+ *                 format: password
+ *                 minLength: 6
+ *                 example: newPassword123
+ *     responses:
+ *       200:
+ *         description: Parol muvaffaqiyatli yangilandi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       400:
+ *         description: Validation error yoki code verified emas
+ *       401:
+ *         description: Unauthorized - reset token required
+ */
+router.post(
+	"/reset-password",
+	authMiddleware,
+	AuthController.resetPassword,
+);
 
 export default router;

@@ -92,6 +92,71 @@ class AuthController {
 			return res.status(500).json({ message: err.message });
 		}
 	}
+
+	async forgotPassword(req, res) {
+		try {
+			const { email } = req.body;
+
+			if (!email) {
+				return res.status(400).json({
+					message: "Email is required",
+				});
+			}
+
+			const result = await authService.forgotPassword(email);
+			return res.json(result);
+		} catch (err) {
+			return res.status(400).json({ message: err.message });
+		}
+	}
+
+	async verifyCode(req, res) {
+		try {
+			const { email, verificationCode } = req.body;
+
+			if (!email || !verificationCode) {
+				return res.status(400).json({
+					message:
+						"Email and verification code are required",
+				});
+			}
+
+			const result = await authService.verifyCode(
+				email,
+				verificationCode,
+			);
+			return res.json(result);
+		} catch (err) {
+			return res.status(400).json({ message: err.message });
+		}
+	}
+
+	async resetPassword(req, res) {
+		try {
+			const { newPassword } = req.body;
+
+			if (!newPassword) {
+				return res.status(400).json({
+					message: "New password is required",
+				});
+			}
+
+			if (newPassword.length < 6) {
+				return res.status(400).json({
+					message:
+						"New password must be at least 6 characters",
+				});
+			}
+
+			const result = await authService.resetPassword(
+				req.user.id,
+				newPassword,
+			);
+			return res.json(result);
+		} catch (err) {
+			return res.status(400).json({ message: err.message });
+		}
+	}
 }
 
 export default new AuthController();
