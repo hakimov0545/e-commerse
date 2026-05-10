@@ -62,6 +62,45 @@ router.put("/profile", authMiddleware, userController.updateProfile);
 
 /**
  * @swagger
+ * /api/users/change-password:
+ *   post:
+ *     summary: Change current user's password
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - currentPassword
+ *               - newPassword
+ *             properties:
+ *               currentPassword:
+ *                 type: string
+ *                 format: password
+ *               newPassword:
+ *                 type: string
+ *                 format: password
+ *                 minLength: 6
+ *     responses:
+ *       200:
+ *         description: Password changed successfully
+ *       400:
+ *         description: Invalid current password or validation error
+ *       401:
+ *         description: Unauthorized
+ */
+router.post(
+	"/change-password",
+	authMiddleware,
+	userController.changePassword,
+);
+
+/**
+ * @swagger
  * /api/users:
  *   get:
  *     summary: Get all users (admin only)

@@ -17,7 +17,7 @@ class UserService extends BaseService {
 			.findByIdAndUpdate(
 				userId,
 				{ $addToSet: { wishlist: productId } },
-				{ new: true }
+				{ new: true },
 			)
 			.populate("wishlist");
 	}
@@ -28,7 +28,7 @@ class UserService extends BaseService {
 			.findByIdAndUpdate(
 				userId,
 				{ $pull: { wishlist: productId } },
-				{ new: true }
+				{ new: true },
 			)
 			.populate("wishlist");
 	}
@@ -36,6 +36,44 @@ class UserService extends BaseService {
 	// 🟢 Foydalanuvchi buyurtmalarini olish
 	async getOrders(userId) {
 		return await this.model.findById(userId).populate("orders");
+	}
+
+	// 🟢 Parolni o'zgartirish
+	async changePassword(userId, currentPassword, newPassword) {
+		const bcrypt = await import("bcryptjs").then(
+			(m) => m.default,
+		);
+		const { BaseError } = await import("../errors/base.error.js");
+
+		const user = await this.model
+			.findById(userId)
+			.select("+password");
+
+		if (!user) {
+			throw BaseError.BadRequest("User not found");
+		}
+
+		// Hozirgi parolni tekshirish
+		const isPassEquals = await bcrypt.compare(
+			currentPassword,
+			user.password,
+		);
+
+		if (!isPassEquals) {
+			throw BaseError.BadRequest(
+				"Current password is incorrect",
+			);
+		}
+
+		// Yangi parolni hashlash
+		const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+		// Parolni yangilash
+		return await this.model.findByIdAndUpdate(
+			userId,
+			{ password: hashedNewPassword },
+			{ new: true },
+		);
 	}
 }
 
